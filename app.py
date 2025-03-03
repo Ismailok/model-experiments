@@ -1,7 +1,14 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
-import plotly.express as px
+
+try:
+    import plotly.express as px
+except ModuleNotFoundError:
+    import os
+    os.system("pip install plotly")
+    import plotly.express as px
+
 
 # 🔌 Connexion à la base MLflow
 DB_FILE = "mlflow.db"
