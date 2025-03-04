@@ -30,6 +30,10 @@ def load_data():
 
 df_metrics, df_params, df_runs = load_data()
 
+# Charger les prédictions de test
+test_predictions_path = "Vermax_test_predictions.csv"
+df_test_predictions = pd.read_csv(test_predictions_path)
+
 # 🎨 Interface Streamlit
 st.title("📊 Dashboard MLflow - Expérimentations")
 
@@ -67,6 +71,11 @@ best_runs = df_metrics_filtered.sort_values(by="value", ascending=True).head(10)
 st.subheader("🏆 Top 10 Meilleurs Modèles (selon la métrique)")
 st.dataframe(best_runs)
 
+# 📌 Afficher les prédictions de test
+st.subheader("🔍 Prédictions de test")
+st.dataframe(df_test_predictions)
+
 # 📌 Téléchargement des résultats
 st.download_button("📥 Télécharger les métriques (CSV)", df_metrics_filtered.to_csv(index=False), "mlflow_metrics.csv")
 st.download_button("📥 Télécharger les paramètres (CSV)", df_params_filtered.to_csv(index=False), "mlflow_params.csv")
+st.download_button("📥 Télécharger les prédictions de test (CSV)", df_test_predictions.to_csv(index=False), "test_predictions.csv")
